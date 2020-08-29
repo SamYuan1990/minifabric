@@ -13,11 +13,12 @@ fabric:
   - "orderer3.example.com"
   settings:
     ca:
-      FABRIC_LOGGING_SPEC: DEBUG
+      FABRIC_LOGGING_SPEC: INFO
     peer:
-      FABRIC_LOGGING_SPEC: DEBUG
+      FABRIC_LOGGING_SPEC: INFO
     orderer:
-      FABRIC_LOGGING_SPEC: DEBUG
+      FABRIC_LOGGING_SPEC: INFO
+  goproxy: "https://goproxy.cn,direct"
   ### use go proxy when default go proxy is restricted in some of the regions.
   ### the default goproxy
   # goproxy: "https://proxy.golang.org,direct"
