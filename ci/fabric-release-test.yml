@@ -3,13 +3,5 @@ parameters:
 
 jobs:
 - ${{ each release in parameters.param }}:
-  - job: TestFabric${{ release.name }}
-    steps:
-    - script: docker build -t hfrd/minifab:latest .
-      displayName: 'Build up the minifabric container'
-
-    - script: export MaxMessageCount=20 && export AbsoluteMaxBytes=120 && export PreferredMaxBytes=1024 && export BatchTimeout=4 && ./minifab up -i ${{ release.number }}
-      displayName: 'Setup minifabric network'
-
-    - script: ./minifab cleanup
-      displayName: 'Tear down the network'
+  - job: Test
+    steps: ./ci.sh
