@@ -14,4 +14,4 @@ stages:
   jobs:
   - job:
     steps:
-      - script: ./ci.sh
+      - script: ./ci.sh 100 10
