@@ -16,7 +16,7 @@
 
     - set_fact:
         CLINAME: "{{ current_location_hash[:10] }}_cli"
-        NETNAME: "{{ current_location_hash[:10] }}_net"
+        NETNAME: "{{ fabric.networkname }}"
 
     - name: Remove approve and commit from the operation list if release is less than 2.0
       set_fact:
