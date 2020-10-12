@@ -7,7 +7,7 @@ docker build -t hfrd/minifab:latest .
 git clone git@github.com:guoger/tape.git && cd tape
 docker build -t tape:latest . 
 cd $DIR
-ls -al
+#ls -al
 
 echo -e "Chaincode\t|BatchTimeout\t|MaxMessageCount\t|AbsoluteMaxBytes\t|PreferredMaxBytes\t|TPS\t|\n" >> rs.out
 txnumber=$1
