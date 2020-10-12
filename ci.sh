@@ -4,7 +4,7 @@ set -ex
 #build script if your needed, please build muanually
 DIR=$PWD
 docker build -t hfrd/minifab:latest .
-git clone git@github.com:guoger/tape.git && cd tape
+git clone https://github.com/guoger/tape.git && cd tape
 docker build -t tape:latest . 
 cd $DIR
 #ls -al
