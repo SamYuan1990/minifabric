@@ -2,9 +2,12 @@
 set -ex
 
 #build script if your needed, please build muanually
+DIR=$PWD
 docker build -t hfrd/minifab:latest .
-git clone https://github.com/SamYuan1990/stupid.git && cd stupid && git checkout docker
-docker build -t stupid:latest . && cd ..
+git clone git@github.com:guoger/tape.git && cd tape
+docker build -t tape:latest . 
+cd $DIR
+ls -al
 
 echo -e "Chaincode\t|BatchTimeout\t|MaxMessageCount\t|AbsoluteMaxBytes\t|PreferredMaxBytes\t|TPS\t|\n" >> rs.out
 txnumber=$1
@@ -25,10 +28,10 @@ do
             ./prepareConfig.sh $BatchTimeout $MaxMessageCount $AbsoluteMaxBytes $PreferredMaxBytes -n $chaincode
             #deploy your fabric network by minifab
             ./minifab up
-            #start stupid for performance testing
-            docker run --name stupid --network minifab -v $PWD:/tmp  stupid stupid /tmp/config.yaml $txnumber
-            #echo "libgcc-4.8.5-4.h5.x86_64.rpm" | grep -Eo "[0-9]+\.[0-9]+.*x86_64"
-            export tps=$(docker logs stupid --tail 1| cut -d ":" -f 4)
+            #start tape for performance testing
+            # docker run  -e TAPE_LOGLEVEL=debug --network host -v $PWD:/config tape tape $CONFIG_FILE 500
+            docker run --name tape --network minifab -v $PWD:/config tape tape config.yaml $txnumber
+            export tps=$(docker logs tape --tail 1| cut -d ":" -f 4)
             echo -e "$chaincode\t|$BatchTimeout\t|$MaxMessageCount\t|$AbsoluteMaxBytes\t|$PreferredMaxBytes\t|$tps\t|\n" >> rs.out
             #clean up network by minifab
             ./minifab cleanup
