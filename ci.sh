@@ -30,7 +30,7 @@ do
             ./minifab up
             #start tape for performance testing
             # docker run  -e TAPE_LOGLEVEL=debug --network host -v $PWD:/config tape tape $CONFIG_FILE 500
-            docker run --name tape --network minifab -v $PWD:/config tape tape config.yaml $txnumber
+            docker run --name tape --network minifab -v $PWD:/config tape tape /config/config.yaml $txnumber
             export tps=$(docker logs tape --tail 1| cut -d ":" -f 4)
             echo -e "$chaincode\t|$BatchTimeout\t|$MaxMessageCount\t|$AbsoluteMaxBytes\t|$PreferredMaxBytes\t|$tps\t|\n" >> rs.out
             #clean up network by minifab
