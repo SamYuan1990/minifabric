@@ -119,12 +119,12 @@ Application: &ApplicationDefaults
 Orderer: &OrdererDefaults
   OrdererType: {{ (allorderers|length > 0)|ternary('etcdraft', 'solo') }}
 
-  BatchTimeout: 2s
+  BatchTimeout: {{ fabric.BatchTimeout }}
 
   BatchSize:
-    MaxMessageCount: 10
-    AbsoluteMaxBytes: 99 MB
-    PreferredMaxBytes: 512 KB
+    MaxMessageCount: {{ fabric.MaxMessageCount }} 
+    AbsoluteMaxBytes: {{ fabric.AbsoluteMaxBytes }}
+    PreferredMaxBytes: {{ fabric.PreferredMaxBytes }}
 
 {% if allorderers | length > 0 %}
   Addresses:

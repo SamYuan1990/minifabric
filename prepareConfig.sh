@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+set -ex
+
+cat > spec.yaml << EOF
 fabric:
   cas:
   - "ca1.org0.example.com"
@@ -19,13 +23,13 @@ fabric:
     orderer:
       FABRIC_LOGGING_SPEC: INFO
   goproxy: "https://goproxy.cn,direct"
-  BatchTimeout: 2s
-  MaxMessageCount: 10
-  AbsoluteMaxBytes: 99 MB
-  PreferredMaxBytes: 512 KB
+  BatchTimeout: $1s
+  MaxMessageCount: $2
+  AbsoluteMaxBytes: $3 MB
+  PreferredMaxBytes: $4 KB
   ### use go proxy when default go proxy is restricted in some of the regions.
   ### the default goproxy
   # goproxy: "https://proxy.golang.org,direct"
   ### the goproxy in China area
   # goproxy: "https://goproxy.cn,direct"
-  
+EOF
